@@ -34,6 +34,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btn_usuarios = new javax.swing.JMenuItem();
+        btn_tipo_insumos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -54,7 +55,6 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/config.png"))); // NOI18N
         jMenu1.setText("Configuraciónes");
 
-        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/person.png"))); // NOI18N
         btn_usuarios.setText("Usuarios");
         btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,6 +62,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(btn_usuarios);
+
+        btn_tipo_insumos.setText("Tipo de Insumos");
+        btn_tipo_insumos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tipo_insumosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btn_tipo_insumos);
 
         jMenuBar1.add(jMenu1);
 
@@ -168,6 +176,10 @@ public class Principal extends javax.swing.JFrame {
         new Usuarios().setVisible(true);
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
+    private void btn_tipo_insumosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tipo_insumosActionPerformed
+        new TipoInsumos().setVisible(true);
+    }//GEN-LAST:event_btn_tipo_insumosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,6 +218,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btn_editar;
     private javax.swing.JMenuItem btn_salir;
+    private javax.swing.JMenuItem btn_tipo_insumos;
     private javax.swing.JMenuItem btn_usuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
