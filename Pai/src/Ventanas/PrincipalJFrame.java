@@ -41,8 +41,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        link_departamentos = new javax.swing.JMenuItem();
+        link_municipios = new javax.swing.JMenuItem();
         link_roles = new javax.swing.JMenuItem();
         link_usuarios = new javax.swing.JMenuItem();
+        link_tipoinsumos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -68,6 +71,22 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         jMenu1.setText("Configuracion");
 
+        link_departamentos.setText("Departamentos");
+        link_departamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_departamentosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_departamentos);
+
+        link_municipios.setText("Municipios");
+        link_municipios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_municipiosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_municipios);
+
         link_roles.setText("Roles");
         link_roles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +102,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(link_usuarios);
+
+        link_tipoinsumos.setText("Tipo de Insumos");
+        link_tipoinsumos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_tipoinsumosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_tipoinsumos);
 
         jMenuBar1.add(jMenu1);
 
@@ -176,6 +203,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         UsuariosJInternalFrame users_view = new UsuariosJInternalFrame();
         jDesktop.add(users_view);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = users_view.getSize();
+        users_view.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         users_view.show();
     }//GEN-LAST:event_link_usuariosActionPerformed
 
@@ -195,8 +225,41 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         RolJInternalFrame rol_view = new RolJInternalFrame();
         jDesktop.add(rol_view);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = rol_view.getSize();
+        rol_view.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);        
         rol_view.show();
     }//GEN-LAST:event_link_rolesActionPerformed
+
+    private void link_tipoinsumosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_tipoinsumosActionPerformed
+        // TODO add your handling code here:
+        TipoInsumosJInternalFrame tipoinsumo = new TipoInsumosJInternalFrame();
+        jDesktop.add(tipoinsumo);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = tipoinsumo.getSize();
+        tipoinsumo.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        tipoinsumo.show();
+    }//GEN-LAST:event_link_tipoinsumosActionPerformed
+
+    private void link_departamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_departamentosActionPerformed
+        // TODO add your handling code here:
+        DepartamentosJInternalFrame departamentos = new DepartamentosJInternalFrame();
+        jDesktop.add(departamentos);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = departamentos.getSize();
+        departamentos.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        departamentos.show();
+    }//GEN-LAST:event_link_departamentosActionPerformed
+
+    private void link_municipiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_municipiosActionPerformed
+        // TODO add your handling code here:
+        MunicipiosJInternalFrame municipios = new MunicipiosJInternalFrame();
+        jDesktop.add(municipios);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = municipios.getSize();
+        municipios.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        municipios.show();
+    }//GEN-LAST:event_link_municipiosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,7 +318,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem link_departamentos;
+    private javax.swing.JMenuItem link_municipios;
     private javax.swing.JMenuItem link_roles;
+    private javax.swing.JMenuItem link_tipoinsumos;
     private javax.swing.JMenuItem link_usuarios;
     // End of variables declaration//GEN-END:variables
 }

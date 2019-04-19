@@ -95,6 +95,8 @@ public class RolJInternalFrame extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        setResizable(true);
+        setTitle("Rol");
 
         jLabel2.setText("Buscar:");
 
@@ -304,7 +306,7 @@ public class RolJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_atras)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

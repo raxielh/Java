@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import Modelos.Roles;
+import Modelos.Municipios;
 import javax.swing.JComboBox;
 /**
  *
@@ -37,6 +38,8 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
         CargarDatos();
         Roles roles = new Roles();
         roles.llenar_combo_roles(CB_Rol);
+        Municipios municipios = new Municipios();
+        municipios.llenar_combo(CB_Municipio);
         txt_id.disable();
         txt_id.setVisible(false);
         lbl_id.setVisible(false);
@@ -48,8 +51,9 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
     public void CargarDatos(){
         
         ResultSet resultado = null;
-        String Sql = "Select u.Id,u.Nombre,u.Usuario,Roles.Nombre as Rol,u.Pass "
-                + "from Usuarios as u INNER JOIN Roles ON Rol= Roles.id";
+        String Sql = "Select u.Id,u.Nombre,u.Usuario,Roles.Nombre as Rol,u.Pass,Municipios.Nombre as Municipio "
+                + "from Usuarios as u INNER JOIN Roles ON Rol= Roles.id "
+                + "INNER JOIN Municipios ON Municipio= Municipios.id";
         System.out.println(Sql);
         conn.ConectarDB();
         try { 
@@ -96,6 +100,8 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
         lbl_id = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         CB_Rol = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        CB_Municipio = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         btn_delete = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
@@ -111,6 +117,7 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Usuarios");
 
         jLabel2.setText("Buscar:");
@@ -183,6 +190,8 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Rol:");
 
+        jLabel9.setText("Municipio:");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -204,13 +213,16 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel8))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txt_pass)
                                     .addComponent(txt_usuario)
                                     .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(CB_Rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(CB_Rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CB_Municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))))))
                     .addComponent(btn_cerrar)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,8 +252,12 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(CB_Rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(CB_Municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_cerrar)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
@@ -303,7 +319,7 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -514,10 +530,28 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
             txt_nombre.setText(r.getString("Nombre"));
             txt_usuario.setText(r.getString("Usuario"));
             txt_pass.setText(r.getString("Pass"));
-            CB_Rol.setSelectedIndex(r.getInt("Rol"));
+            //CB_Rol.setSelectedIndex(r.getInt("Rol"));
+            //CB_Municipio.setSelectedIndex(r.getInt("Municipio"));
+            
+            for (int i = 0; i < CB_Rol.getItemCount(); i++)
+            {
+                if(CB_Rol.getItemAt(i).getId()==r.getInt("Rol")){
+                    CB_Rol.setSelectedIndex(i);
+                    break;
+                }
+            }                   
+            
+            for (int i = 0; i < CB_Municipio.getItemCount(); i++)
+            {
+                if(CB_Municipio.getItemAt(i).getId()==r.getInt("Municipio")){
+                    CB_Municipio.setSelectedIndex(i);
+                    break;
+                }
+            }
+                    
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
-        } finally {
+        } finally {  
             try{
                 conn.consulta.close();
                 conn.conexion.close();
@@ -542,35 +576,38 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
                     if(CB_Rol.getItemAt(CB_Rol.getSelectedIndex()).getId()==0){
                         JOptionPane.showMessageDialog(null, "Rol Requerido");
                     }else{
-                        String Sql = "INSERT INTO Usuarios VALUES "
-                                + "(null,'"+txt_nombre.getText()+"',"
-                                + "'"+txt_usuario.getText()+"',"
-                                + "'"+txt_pass.getText()+"',"+CB_Rol.getItemAt(CB_Rol.getSelectedIndex()).getId()+")";
-                        System.out.println(Sql);
-                        conn.ConectarDB();
-                        try {
-                            conn.consulta.executeUpdate(Sql);
-                            JOptionPane.showMessageDialog(null, "Usuario Creado");
-                            txt_nombre.setText("");
-                            txt_usuario.setText("");
-                            txt_pass.setText("");
-                            CargarDatos();
-                            CB_Rol.setSelectedIndex(0);
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(null, ex.getMessage());
-                        } finally {
-                            try{
-                                conn.consulta.close();
-                                conn.conexion.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }        
-                        }                                        
+                        if(CB_Municipio.getItemAt(CB_Municipio.getSelectedIndex()).getId()==-1){
+                            JOptionPane.showMessageDialog(null, "Municipio Requerido");
+                        }else{
+                            String Sql = "INSERT INTO Usuarios VALUES "
+                                    + "(null,'"+txt_nombre.getText()+"',"
+                                    + "'"+txt_usuario.getText()+"',"
+                                    + "'"+txt_pass.getText()+"',"+CB_Rol.getItemAt(CB_Rol.getSelectedIndex()).getId()+","+CB_Municipio.getItemAt(CB_Municipio.getSelectedIndex()).getId()+")";
+                            System.out.println(Sql);
+                            conn.ConectarDB();
+                            try {
+                                conn.consulta.executeUpdate(Sql);
+                                JOptionPane.showMessageDialog(null, "Usuario Creado");
+                                txt_nombre.setText("");
+                                txt_usuario.setText("");
+                                txt_pass.setText("");
+                                CargarDatos();
+                                CB_Rol.setSelectedIndex(0);
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } finally {
+                                try{
+                                    conn.consulta.close();
+                                    conn.conexion.close();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }        
+                            }                         
+                        }                                                             
                     }
                 }                            
             }            
-        }
-                                   
+        }                                   
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
@@ -587,28 +624,33 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
                     if(CB_Rol.getItemAt(CB_Rol.getSelectedIndex()).getId()==0){
                         JOptionPane.showMessageDialog(null, "Rol Requerido");
                     }else{
-                        String Sql = "UPDATE Usuarios SET "
-                                + "Nombre = '"+txt_nombre.getText()+"',"
-                                + "Usuario = '"+txt_usuario.getText()+"',"
-                                + "Pass = '"+txt_pass.getText()+"',"
-                                + "Rol = "+CB_Rol.getItemAt(CB_Rol.getSelectedIndex()).getId()+" "
-                                + "WHERE Id = "+txt_id.getText()+" ";
-                        System.out.println(Sql);
-                        conn.ConectarDB();
-                        try {
-                            conn.consulta.executeUpdate(Sql);
-                            JOptionPane.showMessageDialog(null, "Usuario Actualizado");
-                            CargarDatos();
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(null, ex.getMessage());
-                        } finally {
-                            try{
-                                conn.consulta.close();
-                                conn.conexion.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }        
-                        }                                        
+                        if(CB_Municipio.getItemAt(CB_Municipio.getSelectedIndex()).getId()==0){
+                            JOptionPane.showMessageDialog(null, "Municipio Requerido");
+                        }else{
+                            String Sql = "UPDATE Usuarios SET "
+                                    + "Nombre = '"+txt_nombre.getText()+"',"
+                                    + "Usuario = '"+txt_usuario.getText()+"',"
+                                    + "Pass = '"+txt_pass.getText()+"',"
+                                    + "Rol = "+CB_Rol.getItemAt(CB_Rol.getSelectedIndex()).getId()+","
+                                    + "Municipio = "+CB_Municipio.getItemAt(CB_Municipio.getSelectedIndex()).getId()+" "
+                                    + "WHERE Id = "+txt_id.getText()+" ";
+                            System.out.println(Sql);
+                            conn.ConectarDB();
+                            try {
+                                conn.consulta.executeUpdate(Sql);
+                                JOptionPane.showMessageDialog(null, "Usuario Actualizado");
+                                CargarDatos();
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } finally {
+                                try{
+                                    conn.consulta.close();
+                                    conn.conexion.close();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }        
+                            }                           
+                        }                                     
                     }
                 }                            
             }            
@@ -644,6 +686,7 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Municipios> CB_Municipio;
     private javax.swing.JComboBox<Roles> CB_Rol;
     private javax.swing.JButton btn_adelante;
     private javax.swing.JButton btn_adelante1;
@@ -661,6 +704,7 @@ public class UsuariosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
