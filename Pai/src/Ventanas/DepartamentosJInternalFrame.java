@@ -6,6 +6,7 @@
 package Ventanas;
 
 import Connection.Conexion;
+import com.sun.javafx.scene.SceneHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -24,22 +25,28 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
      */
     public DepartamentosJInternalFrame() {
         initComponents();
-        CargarDatos();
+        CargarDatos(txt_limit.getText(),txt_offset.getText());
         txt_id.disable();
         txt_id.setVisible(false);
         lbl_id.setVisible(false);
         btn_update.setVisible(false);
         btn_cerrar.setVisible(false);
         btn_delete.setVisible(false);
+        txt_offset1.setVisible(false);
     }
     
-    public void CargarDatos(){
+    public void CargarDatos(String limit,String offset){
         
-        ResultSet resultado = null;
-        String Sql = "Select * from "+Tabla+"";
-        System.out.println(Sql);
+        ResultSet resultado,resultado_count = null;
+        String Sql = "Select * from "+Tabla+" where Id <> 0 ORDER BY Id DESC limit "+limit+" offset "+offset+" ";
+        String Sql_count = "Select count(*) as rowcount from "+Tabla+" where Id <> 0";
         conn.ConectarDB();
         try { 
+            resultado_count = conn.consulta.executeQuery(Sql_count);
+            int c = resultado_count.getInt("rowcount");
+            String count = String.valueOf(c);
+            lbl_count.setText(count);
+            
             resultado = conn.consulta.executeQuery(Sql);
             tbl_datos.setModel(DbUtils.resultSetToTableModel(resultado));
         } catch (SQLException ex) {
@@ -64,7 +71,18 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txt_﻿offset = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_datos = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        lbl_count = new javax.swing.JLabel();
+        txt_﻿offset1 = new javax.swing.JFormattedTextField();
+        txt_limit = new javax.swing.JFormattedTextField();
+        btn_adelante = new javax.swing.JButton();
+        btn_atras = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
@@ -81,19 +99,132 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
         btn_delete = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
         btn_update = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_datos = new javax.swing.JTable();
-        btn_atras = new javax.swing.JButton();
-        btn_adelante = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        btn_atras1 = new javax.swing.JButton();
-        btn_adelante1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+
+        txt_﻿offset.setText("1");
+        txt_﻿offset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_﻿offsetActionPerformed(evt);
+            }
+        });
 
         setClosable(true);
         setResizable(true);
         setTitle("Departamentos");
+
+        tbl_datos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_datos.setFillsViewportHeight(true);
+        tbl_datos.setShowGrid(false);
+        tbl_datos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_datosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_datos);
+
+        lbl_count.setText("...");
+
+        txt_﻿offset1.setText("1");
+        txt_﻿offset1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_﻿offset1ActionPerformed(evt);
+            }
+        });
+
+        txt_limit.setText("20");
+        txt_limit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_limitActionPerformed(evt);
+            }
+        });
+
+        btn_adelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
+        btn_adelante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adelanteActionPerformed(evt);
+            }
+        });
+
+        btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
+        btn_atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_atrasActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Cantidad de registros ");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(btn_atras)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_adelante)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_limit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt_﻿offset1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_count)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_count)
+                    .addComponent(txt_﻿offset1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_limit)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btn_adelante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_atras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addGap(39, 39, 39)))
+        );
 
         jLabel2.setText("Buscar:");
 
@@ -253,82 +384,8 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        tbl_datos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl_datos.setFillsViewportHeight(true);
-        tbl_datos.setShowGrid(false);
-        tbl_datos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_datosMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbl_datos);
-
-        btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
-
-        btn_adelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
-
-        jLabel3.setText("1/1");
-
-        btn_atras1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
-
-        btn_adelante1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_atras)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_atras1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_adelante1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_adelante)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_atras)
-                        .addComponent(jLabel3))
-                    .addComponent(btn_atras1)
-                    .addComponent(btn_adelante1)
-                    .addComponent(btn_adelante))
                 .addContainerGap())
         );
 
@@ -373,21 +430,17 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 842, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -445,7 +498,7 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
                 btn_save.setVisible(true);
                 txt_id.setText("");
                 txt_nombre.setText("");
-                CargarDatos();
+                CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
             } finally {
@@ -472,7 +525,7 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
                 conn.consulta.executeUpdate(Sql);
                 JOptionPane.showMessageDialog(null, Modulo+" Creado");
                 txt_nombre.setText("");
-                CargarDatos();
+                 CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } finally {
@@ -499,7 +552,7 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
             try {
                 conn.consulta.executeUpdate(Sql);
                 JOptionPane.showMessageDialog(null, Modulo+" Actualizado");
-                CargarDatos();
+                CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } finally {
@@ -512,6 +565,40 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btn_updateActionPerformed
+
+    private void txt_limitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_limitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_limitActionPerformed
+
+    private void txt_﻿offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_﻿offsetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_﻿offsetActionPerformed
+
+    private void txt_﻿offset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_﻿offset1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_﻿offset1ActionPerformed
+
+    private void btn_adelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adelanteActionPerformed
+        // TODO add your handling code here:
+        int o = Integer.parseInt(txt_﻿offset1.getText());
+        int l = Integer.parseInt(txt_limit.getText());
+        int sum=o+l;
+        if(sum<=Integer.parseInt(lbl_count.getText())){
+            txt_﻿offset1.setText(String.valueOf(sum));
+            CargarDatos(txt_limit.getText(),txt_offset1.getText());
+        }
+    }//GEN-LAST:event_btn_adelanteActionPerformed
+
+    private void btn_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atrasActionPerformed
+        // TODO add your handling code here:
+        int o = Integer.parseInt(txt_﻿offset1.getText());
+        int l = Integer.parseInt(txt_limit.getText());
+        int res=o-l;
+        if(res>=0){
+            txt_﻿offset1.setText(String.valueOf(res));
+            CargarDatos(txt_limit.getText(),txt_offset1.getText());
+        }
+    }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void tbl_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_datosMouseClicked
         // TODO add your handling code here:
@@ -541,15 +628,13 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }        
     }//GEN-LAST:event_tbl_datosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_adelante;
-    private javax.swing.JButton btn_adelante1;
     private javax.swing.JButton btn_atras;
-    private javax.swing.JButton btn_atras1;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_delete;
@@ -559,6 +644,7 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -566,11 +652,15 @@ public class DepartamentosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_count;
     private javax.swing.JLabel lbl_id;
     private javax.swing.JComboBox<String> s_busqueda;
     private javax.swing.JTable tbl_datos;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_id;
+    private javax.swing.JFormattedTextField txt_limit;
     private javax.swing.JTextField txt_nombre;
+    private javax.swing.JFormattedTextField txt_﻿offset;
+    private javax.swing.JFormattedTextField txt_﻿offset1;
     // End of variables declaration//GEN-END:variables
 }

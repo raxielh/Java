@@ -53,7 +53,7 @@ public class Departamentos {
             System.out.println(Sql);
             CB_departamentos.addItem(
                             new Departamentos(
-                                0,
+                                -1,
                                 "Elija"
                             )
             );

@@ -28,7 +28,7 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
      */
     public MunicipiosJInternalFrame() {
         initComponents();
-        CargarDatos();
+        CargarDatos(txt_limit.getText(),txt_offset.getText());
         txt_id.disable();
         txt_id.setVisible(false);
         lbl_id.setVisible(false);
@@ -39,10 +39,11 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         departamentos.llenar_combo(CB_departamentos);
     }
     
-    public void CargarDatos(){
+    public void CargarDatos(String limit,String offset){
         
         ResultSet resultado = null;
-        String Sql = "Select * from "+Tabla+"";
+        String Sql = "Select m.Id,m.Nombre,Departamentos.Nombre as Departamento from "+Tabla+" as m "
+                + "INNER JOIN Departamentos ON Departamento= Departamentos.id limit "+limit+" offset "+offset+" ";
         System.out.println(Sql);
         conn.ConectarDB();
         try { 
@@ -94,10 +95,10 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_datos = new javax.swing.JTable();
         btn_atras = new javax.swing.JButton();
-        btn_adelante = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        btn_atras1 = new javax.swing.JButton();
         btn_adelante1 = new javax.swing.JButton();
+        txt_limit = new javax.swing.JFormattedTextField();
+        txt_﻿offset = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -307,13 +308,23 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
 
         btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
 
-        btn_adelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
-
         jLabel3.setText("1/1");
 
-        btn_atras1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
-
         btn_adelante1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
+
+        txt_limit.setText("5");
+        txt_limit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_limitActionPerformed(evt);
+            }
+        });
+
+        txt_﻿offset.setText("1");
+        txt_﻿offset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_﻿offsetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -322,15 +333,15 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_atras)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_atras1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_adelante1)
+                        .addGap(39, 39, 39)
+                        .addComponent(txt_limit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_adelante)
+                        .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)))
                 .addContainerGap())
@@ -341,13 +352,14 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_atras)
                         .addComponent(jLabel3))
-                    .addComponent(btn_atras1)
-                    .addComponent(btn_adelante1)
-                    .addComponent(btn_adelante))
+                    .addComponent(btn_adelante1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_﻿offset)
+                        .addComponent(txt_limit)))
                 .addContainerGap())
         );
 
@@ -464,7 +476,7 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
                 btn_save.setVisible(true);
                 txt_id.setText("");
                 txt_nombre.setText("");
-                CargarDatos();
+                CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
             } finally {
@@ -483,24 +495,28 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         if(txt_nombre.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Nombre Requerido");
         }else{
-            String Sql = "INSERT INTO "+Tabla+" VALUES "
-            + "(null,'"+txt_nombre.getText()+"',"+CB_departamentos.getItemAt(CB_departamentos.getSelectedIndex()).getId()+")";
-            System.out.println(Sql);
-            conn.ConectarDB();
-            try {
-                conn.consulta.executeUpdate(Sql);
-                JOptionPane.showMessageDialog(null, Modulo+" Creado");
-                txt_nombre.setText("");
-                CargarDatos();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } finally {
-                try{
-                    conn.consulta.close();
-                    conn.conexion.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if(CB_departamentos.getItemAt(CB_departamentos.getSelectedIndex()).getId()==-1){
+                JOptionPane.showMessageDialog(null, "Municipio Requerido");
+            }else{
+                String Sql = "INSERT INTO "+Tabla+" VALUES "
+                + "(null,'"+txt_nombre.getText()+"',"+CB_departamentos.getItemAt(CB_departamentos.getSelectedIndex()).getId()+")";
+                System.out.println(Sql);
+                conn.ConectarDB();
+                try {
+                    conn.consulta.executeUpdate(Sql);
+                    JOptionPane.showMessageDialog(null, Modulo+" Creado");
+                    txt_nombre.setText("");
+                    CargarDatos(txt_limit.getText(),txt_offset.getText());
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                } finally {
+                    try{
+                        conn.consulta.close();
+                        conn.conexion.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }            
             }
         }
     }//GEN-LAST:event_btn_saveActionPerformed
@@ -519,7 +535,7 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
             try {
                 conn.consulta.executeUpdate(Sql);
                 JOptionPane.showMessageDialog(null, Modulo+" Actualizado");
-                CargarDatos();
+                CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } finally {
@@ -537,13 +553,22 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int Fila = tbl_datos.getSelectedRow();
         String codigo = tbl_datos.getValueAt(Fila, 0).toString();
-        txt_id.setText(codigo);
-        txt_id.setVisible(true);
-        lbl_id.setVisible(true);
-        btn_update.setVisible(true);
-        btn_cerrar.setVisible(true);
-        btn_delete.setVisible(true);
-        btn_save.setVisible(false);
+               
+        int cod=Integer.parseInt(codigo);
+        if(cod==0){
+            btn_update.setVisible(false);
+            btn_delete.setVisible(false);
+            btn_save.setVisible(false);
+            btn_cerrar.setVisible(true);
+        }else{
+            txt_id.setText(codigo);
+            txt_id.setVisible(true);
+            lbl_id.setVisible(true);
+            btn_update.setVisible(true);
+            btn_cerrar.setVisible(true);
+            btn_delete.setVisible(true);
+            btn_save.setVisible(false);        
+        }   
 
         ResultSet r = null;
         String Sql = "Select * from "+Tabla+" where Id = "+codigo+" ";
@@ -552,7 +577,14 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         try {
             r = conn.consulta.executeQuery(Sql);
             txt_nombre.setText(r.getString("Nombre"));
-            CB_departamentos.setSelectedIndex(r.getInt("Departamento"));
+            //CB_departamentos.setSelectedIndex(r.getInt("Departamento"));
+            for (int i = 0; i < CB_departamentos.getItemCount(); i++)
+            {
+                if(CB_departamentos.getItemAt(i).getId()==r.getInt("Departamento")){
+                    CB_departamentos.setSelectedIndex(i);
+                    break;
+                }
+            }  
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         } finally {
@@ -565,13 +597,19 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbl_datosMouseClicked
 
+    private void txt_limitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_limitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_limitActionPerformed
+
+    private void txt_﻿offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_﻿offsetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_﻿offsetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Departamentos> CB_departamentos;
-    private javax.swing.JButton btn_adelante;
     private javax.swing.JButton btn_adelante1;
     private javax.swing.JButton btn_atras;
-    private javax.swing.JButton btn_atras1;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_delete;
@@ -594,6 +632,8 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_datos;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_id;
+    private javax.swing.JFormattedTextField txt_limit;
     private javax.swing.JTextField txt_nombre;
+    private javax.swing.JFormattedTextField txt_﻿offset;
     // End of variables declaration//GEN-END:variables
 }
