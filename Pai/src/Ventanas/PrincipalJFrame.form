@@ -67,7 +67,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="link_institucionprocedencia">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Instituci&#xf3;n de Procedencia"/>
+                <Property name="text" type="java.lang.String" value="Instituci&#xf3;nes de Procedencia"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="link_institucionprocedenciaActionPerformed"/>

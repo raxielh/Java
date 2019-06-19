@@ -130,7 +130,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         });
         jMenu1.add(link_presentaciones);
 
-        link_institucionprocedencia.setText("Institución de Procedencia");
+        link_institucionprocedencia.setText("Instituciónes de Procedencia");
         link_institucionprocedencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 link_institucionprocedenciaActionPerformed(evt);
