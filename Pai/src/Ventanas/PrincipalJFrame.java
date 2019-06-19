@@ -46,6 +46,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         link_roles = new javax.swing.JMenuItem();
         link_usuarios = new javax.swing.JMenuItem();
         link_tipoinsumos = new javax.swing.JMenuItem();
+        link_laboratorios = new javax.swing.JMenuItem();
+        link_presentaciones = new javax.swing.JMenuItem();
+        link_institucionprocedencia = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -110,6 +113,30 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(link_tipoinsumos);
+
+        link_laboratorios.setText("Laboratorios");
+        link_laboratorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_laboratoriosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_laboratorios);
+
+        link_presentaciones.setText("Presentaciones");
+        link_presentaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_presentacionesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_presentaciones);
+
+        link_institucionprocedencia.setText("Institución de Procedencia");
+        link_institucionprocedencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_institucionprocedenciaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_institucionprocedencia);
 
         jMenuBar1.add(jMenu1);
 
@@ -261,6 +288,36 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         municipios.show();
     }//GEN-LAST:event_link_municipiosActionPerformed
 
+    private void link_laboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_laboratoriosActionPerformed
+        // TODO add your handling code here:
+        LaboratoriosJInternalFrame laboratorios = new LaboratoriosJInternalFrame();
+        jDesktop.add(laboratorios);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = laboratorios.getSize();
+        laboratorios.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        laboratorios.show();
+    }//GEN-LAST:event_link_laboratoriosActionPerformed
+
+    private void link_presentacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_presentacionesActionPerformed
+        // TODO add your handling code here:
+        PresentacionesJInternalFrame presentaciones = new PresentacionesJInternalFrame();
+        jDesktop.add(presentaciones);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = presentaciones.getSize();
+        presentaciones.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        presentaciones.show();
+    }//GEN-LAST:event_link_presentacionesActionPerformed
+
+    private void link_institucionprocedenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_institucionprocedenciaActionPerformed
+        // TODO add your handling code here:
+        InstitucionProcendenciaJInternalFrame procedencia = new InstitucionProcendenciaJInternalFrame();
+        jDesktop.add(procedencia);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = procedencia.getSize();
+        procedencia.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        procedencia.show();
+    }//GEN-LAST:event_link_institucionprocedenciaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -319,7 +376,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem link_departamentos;
+    private javax.swing.JMenuItem link_institucionprocedencia;
+    private javax.swing.JMenuItem link_laboratorios;
     private javax.swing.JMenuItem link_municipios;
+    private javax.swing.JMenuItem link_presentaciones;
     private javax.swing.JMenuItem link_roles;
     private javax.swing.JMenuItem link_tipoinsumos;
     private javax.swing.JMenuItem link_usuarios;
