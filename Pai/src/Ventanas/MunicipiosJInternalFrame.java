@@ -35,6 +35,8 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         btn_update.setVisible(false);
         btn_cerrar.setVisible(false);
         btn_delete.setVisible(false);
+        txt_limit.setVisible(false);
+        txt_﻿offset.setVisible(false);
         Departamentos departamentos = new Departamentos();
         departamentos.llenar_combo(CB_departamentos);
     }
@@ -95,7 +97,6 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_datos = new javax.swing.JTable();
         btn_atras = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         btn_adelante1 = new javax.swing.JButton();
         txt_limit = new javax.swing.JFormattedTextField();
         txt_﻿offset = new javax.swing.JFormattedTextField();
@@ -298,7 +299,6 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
         tbl_datos.setFillsViewportHeight(true);
-        tbl_datos.setShowGrid(false);
         tbl_datos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_datosMouseClicked(evt);
@@ -308,18 +308,16 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
 
         btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
 
-        jLabel3.setText("1/1");
-
         btn_adelante1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
 
-        txt_limit.setText("5");
+        txt_limit.setText("30");
         txt_limit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_limitActionPerformed(evt);
             }
         });
 
-        txt_﻿offset.setText("1");
+        txt_﻿offset.setText("0");
         txt_﻿offset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_﻿offsetActionPerformed(evt);
@@ -338,28 +336,25 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
                         .addComponent(btn_atras)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_adelante1)
-                        .addGap(39, 39, 39)
-                        .addComponent(txt_limit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_limit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
+                        .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_atras)
-                        .addComponent(jLabel3))
+                        .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_adelante1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_﻿offset)
-                        .addComponent(txt_limit)))
+                    .addComponent(txt_limit, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
 
@@ -617,7 +612,6 @@ public class MunicipiosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_update;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;

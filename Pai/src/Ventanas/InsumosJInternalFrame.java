@@ -6,6 +6,7 @@
 package Ventanas;
 
 import Connection.Conexion;
+import Modelos.TipoInsumos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -15,30 +16,35 @@ import net.proteanit.sql.DbUtils;
  *
  * @author raxielh
  */
-public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
+public class InsumosJInternalFrame extends javax.swing.JInternalFrame {
 
     Conexion conn = new Conexion();
-    String Tabla = "TipoInsumos";
-    String Modulo = "Tipo de Insumo";
+    String Tabla = "Insumos";
+    String Modulo = "Insumos";
     
     /**
-     * Creates new form TipoInsumosJInternalFrame
+     * Creates new form MunicipiosJInternalFrame
      */
-    public TipoInsumosJInternalFrame() {
+    public InsumosJInternalFrame() {
         initComponents();
-        CargarDatos();
+        CargarDatos(txt_limit.getText(),txt_offset.getText());
         txt_id.disable();
         txt_id.setVisible(false);
         lbl_id.setVisible(false);
         btn_update.setVisible(false);
         btn_cerrar.setVisible(false);
         btn_delete.setVisible(false);
+        txt_limit.setVisible(false);
+        txt_﻿offset.setVisible(false);
+        TipoInsumos tpi = new TipoInsumos();
+        tpi.llenar_combo(CB_TipoInsumos);
     }
     
-    public void CargarDatos(){
+    public void CargarDatos(String limit,String offset){
         
         ResultSet resultado = null;
-        String Sql = "Select * from "+Tabla+"";
+        String Sql = "select Insumos.id,Insumos.Nombre,TipoInsumos.Nombre from "+Tabla
+                + " INNER JOIN TipoInsumos ON  Insumos.Tipo_Insumo = TipoInsumos.id limit "+limit+" offset "+offset+" ";
         System.out.println(Sql);
         conn.ConectarDB();
         try { 
@@ -57,6 +63,7 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         
     }  
     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,6 +86,8 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         btn_cerrar = new javax.swing.JButton();
         txt_id = new javax.swing.JTextField();
         lbl_id = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        CB_TipoInsumos = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         btn_delete = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
@@ -86,11 +95,15 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_datos = new javax.swing.JTable();
+        btn_atras = new javax.swing.JButton();
+        btn_adelante1 = new javax.swing.JButton();
+        txt_limit = new javax.swing.JFormattedTextField();
+        txt_﻿offset = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setResizable(true);
-        setTitle("Tipos de Insumos");
+        setTitle("Insumos");
 
         jLabel2.setText("Buscar:");
 
@@ -150,29 +163,31 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
 
         lbl_id.setText("Id:");
 
+        jLabel5.setText("Tipo");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 207, Short.MAX_VALUE)
+                        .addComponent(btn_cerrar))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CB_TipoInsumos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                                        .addComponent(lbl_id)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btn_cerrar)))))
+                                .addComponent(lbl_id)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -187,8 +202,12 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(CB_TipoInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addComponent(btn_cerrar)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
@@ -282,25 +301,60 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbl_datos);
 
+        btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
+
+        btn_adelante1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
+
+        txt_limit.setText("30");
+        txt_limit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_limitActionPerformed(evt);
+            }
+        });
+
+        txt_﻿offset.setText("0");
+        txt_﻿offset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_﻿offsetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btn_atras)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_adelante1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_limit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_atras)
+                        .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_adelante1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_limit, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
         );
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setText("Modulo Tipo Insumos");
+        jLabel1.setText("Modulo Insumos");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -349,7 +403,7 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 456, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -363,7 +417,7 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
         ResultSet resultado = null;
-        String Sql = "Select * from "+Tabla+" where "
+        String Sql = "select Insumos.id,Insumos.Nombre,TipoInsumos.Nombre from Insumos INNER JOIN TipoInsumos ON  Insumos.Tipo_Insumo = TipoInsumos.id where Insumos."
         +s_busqueda.getSelectedItem().toString()+" LIKE '%"+txt_buscar.getText()+"%'";
         System.out.println(Sql);
         conn.ConectarDB();
@@ -412,7 +466,7 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
                 btn_save.setVisible(true);
                 txt_id.setText("");
                 txt_nombre.setText("");
-                CargarDatos();
+                CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
             } finally {
@@ -431,24 +485,28 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         if(txt_nombre.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Nombre Requerido");
         }else{
-            String Sql = "INSERT INTO "+Tabla+" VALUES "
-            + "(null,'"+txt_nombre.getText()+"')";
-            System.out.println(Sql);
-            conn.ConectarDB();
-            try {
-                conn.consulta.executeUpdate(Sql);
-                JOptionPane.showMessageDialog(null, Modulo+" Creado");
-                txt_nombre.setText("");
-                CargarDatos();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } finally {
-                try{
-                    conn.consulta.close();
-                    conn.conexion.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if(CB_TipoInsumos.getItemAt(CB_TipoInsumos.getSelectedIndex()).getId()==-1){
+                JOptionPane.showMessageDialog(null, "Tipo Requerido");
+            }else{
+                String Sql = "INSERT INTO "+Tabla+" VALUES "
+                + "(null,'"+txt_nombre.getText()+"',"+CB_TipoInsumos.getItemAt(CB_TipoInsumos.getSelectedIndex()).getId()+")";
+                System.out.println(Sql);
+                conn.ConectarDB();
+                try {
+                    conn.consulta.executeUpdate(Sql);
+                    JOptionPane.showMessageDialog(null, Modulo+" Creado");
+                    txt_nombre.setText("");
+                    CargarDatos(txt_limit.getText(),txt_offset.getText());
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                } finally {
+                    try{
+                        conn.consulta.close();
+                        conn.conexion.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }            
             }
         }
     }//GEN-LAST:event_btn_saveActionPerformed
@@ -459,14 +517,15 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Nombre Requerido");
         }else{
             String Sql = "UPDATE "+Tabla+" SET "
-            + "Nombre = '"+txt_nombre.getText()+"'"
+            + "Nombre = '"+txt_nombre.getText()+"',"
+            + "Tipo_Insumo= "+CB_TipoInsumos.getItemAt(CB_TipoInsumos.getSelectedIndex()).getId()+" "
             + "WHERE Id = "+txt_id.getText()+" ";
             System.out.println(Sql);
             conn.ConectarDB();
             try {
                 conn.consulta.executeUpdate(Sql);
                 JOptionPane.showMessageDialog(null, Modulo+" Actualizado");
-                CargarDatos();
+                CargarDatos(txt_limit.getText(),txt_offset.getText());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } finally {
@@ -484,13 +543,22 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int Fila = tbl_datos.getSelectedRow();
         String codigo = tbl_datos.getValueAt(Fila, 0).toString();
-        txt_id.setText(codigo);
-        txt_id.setVisible(true);
-        lbl_id.setVisible(true);
-        btn_update.setVisible(true);
-        btn_cerrar.setVisible(true);
-        btn_delete.setVisible(true);
-        btn_save.setVisible(false);
+               
+        int cod=Integer.parseInt(codigo);
+        if(cod==0){
+            btn_update.setVisible(false);
+            btn_delete.setVisible(false);
+            btn_save.setVisible(false);
+            btn_cerrar.setVisible(true);
+        }else{
+            txt_id.setText(codigo);
+            txt_id.setVisible(true);
+            lbl_id.setVisible(true);
+            btn_update.setVisible(true);
+            btn_cerrar.setVisible(true);
+            btn_delete.setVisible(true);
+            btn_save.setVisible(false);        
+        }   
 
         ResultSet r = null;
         String Sql = "Select * from "+Tabla+" where Id = "+codigo+" ";
@@ -499,6 +567,14 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         try {
             r = conn.consulta.executeQuery(Sql);
             txt_nombre.setText(r.getString("Nombre"));
+            //CB_departamentos.setSelectedIndex(r.getInt("Departamento"));
+            for (int i = 0; i < CB_TipoInsumos.getItemCount(); i++)
+            {
+                if(CB_TipoInsumos.getItemAt(i).getId()==r.getInt("Tipo_Insumo")){
+                    CB_TipoInsumos.setSelectedIndex(i);
+                    break;
+                }
+            }  
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         } finally {
@@ -511,8 +587,19 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbl_datosMouseClicked
 
+    private void txt_limitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_limitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_limitActionPerformed
+
+    private void txt_﻿offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_﻿offsetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_﻿offsetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<TipoInsumos> CB_TipoInsumos;
+    private javax.swing.JButton btn_adelante1;
+    private javax.swing.JButton btn_atras;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_delete;
@@ -521,6 +608,7 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -533,6 +621,8 @@ public class TipoInsumosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_datos;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_id;
+    private javax.swing.JFormattedTextField txt_limit;
     private javax.swing.JTextField txt_nombre;
+    private javax.swing.JFormattedTextField txt_﻿offset;
     // End of variables declaration//GEN-END:variables
 }

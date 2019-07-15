@@ -32,6 +32,7 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
         btn_cerrar.setVisible(false);
         btn_delete.setVisible(false);
         txt_offset.setVisible(false);
+        txt_limit.setVisible(false);
     }
     public void CargarDatos(String limit,String offset){
         ResultSet resultado,resultado_count = null;
@@ -75,9 +76,6 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
         lbl_count = new javax.swing.JLabel();
         txt_﻿offset = new javax.swing.JFormattedTextField();
         txt_limit = new javax.swing.JFormattedTextField();
-        btn_adelante = new javax.swing.JButton();
-        btn_atras = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
@@ -120,7 +118,6 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
         tbl_datos.setFillsViewportHeight(true);
-        tbl_datos.setShowGrid(false);
         tbl_datos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_datosMouseClicked(evt);
@@ -137,44 +134,23 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        txt_limit.setText("20");
+        txt_limit.setText("100");
         txt_limit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_limitActionPerformed(evt);
             }
         });
 
-        btn_adelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/der.png"))); // NOI18N
-        btn_adelante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_adelanteActionPerformed(evt);
-            }
-        });
-
-        btn_atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/izq.png"))); // NOI18N
-        btn_atras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_atrasActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Cantidad de registros ");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(btn_atras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_adelante)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(118, 118, 118)
                 .addComponent(txt_limit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(116, 116, 116)
                 .addComponent(lbl_count)
                 .addContainerGap())
         );
@@ -183,22 +159,19 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_count)
                     .addComponent(txt_﻿offset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_limit)
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(btn_adelante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_atras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_limit)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_count)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
         );
@@ -230,7 +203,7 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addComponent(s_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -347,7 +320,7 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
                 .addComponent(btn_save)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_delete)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +345,7 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -464,36 +437,6 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_tbl_datosMouseClicked
-
-    private void txt_﻿offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_﻿offsetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_﻿offsetActionPerformed
-
-    private void txt_limitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_limitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_limitActionPerformed
-
-    private void btn_adelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adelanteActionPerformed
-        // TODO add your handling code here:
-        int o = Integer.parseInt(txt_﻿offset.getText());
-        int l = Integer.parseInt(txt_limit.getText());
-        int sum=o+l;
-        if(sum<=Integer.parseInt(lbl_count.getText())){
-            txt_﻿offset.setText(String.valueOf(sum));
-            CargarDatos(txt_limit.getText(),txt_offset.getText());
-        }
-    }//GEN-LAST:event_btn_adelanteActionPerformed
-
-    private void btn_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atrasActionPerformed
-        // TODO add your handling code here:
-        int o = Integer.parseInt(txt_﻿offset.getText());
-        int l = Integer.parseInt(txt_limit.getText());
-        int res=o-l;
-        if(res>=0){
-            txt_﻿offset.setText(String.valueOf(res));
-            CargarDatos(txt_limit.getText(),txt_offset.getText());
-        }
-    }//GEN-LAST:event_btn_atrasActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
@@ -615,10 +558,16 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btn_updateActionPerformed
 
+    private void txt_limitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_limitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_limitActionPerformed
+
+    private void txt_﻿offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_﻿offsetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_﻿offsetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_adelante;
-    private javax.swing.JButton btn_atras;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_delete;
@@ -626,7 +575,6 @@ public class PresentacionesJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_update;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

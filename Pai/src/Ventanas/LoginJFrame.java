@@ -53,17 +53,15 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBounds(new java.awt.Rectangle(100, 0, 100, 0));
-
         jLabel1.setText("Digite sus datos para poder ingresar");
         jLabel1.setAlignmentY(0.0F);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/key.png"))); // NOI18N
         jLabel2.setText("Contraseña:");
 
-        txt_user.setText("raxielh");
+        txt_user.setText("qwe");
 
-        txt_pass.setText("123");
+        txt_pass.setText("qwe");
 
         btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cancel.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");

@@ -39,6 +39,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktop = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         link_departamentos = new javax.swing.JMenuItem();
@@ -49,8 +51,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         link_laboratorios = new javax.swing.JMenuItem();
         link_presentaciones = new javax.swing.JMenuItem();
         link_institucionprocedencia = new javax.swing.JMenuItem();
+        link_insumos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        link_movim_entradas = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -71,6 +74,30 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jDesktop.setMinimumSize(new java.awt.Dimension(900, 600));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel5)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel5)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jDesktop.add(jPanel1);
+        jPanel1.setBounds(10, 10, 350, 210);
 
         jMenu1.setText("Configuracion");
 
@@ -138,12 +165,25 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         });
         jMenu1.add(link_institucionprocedencia);
 
+        link_insumos.setText("Insumos");
+        link_insumos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_insumosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(link_insumos);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Entradas");
 
-        jMenuItem1.setText("Movimientos");
-        jMenu2.add(jMenuItem1);
+        link_movim_entradas.setText("Movimientos");
+        link_movim_entradas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                link_movim_entradasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(link_movim_entradas);
 
         jMenuItem2.setText("Reportes");
         jMenu2.add(jMenuItem2);
@@ -318,6 +358,26 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         procedencia.show();
     }//GEN-LAST:event_link_institucionprocedenciaActionPerformed
 
+    private void link_movim_entradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_movim_entradasActionPerformed
+        // TODO add your handling code here:
+        MovimientosEntradasJInternalFrame mov = new MovimientosEntradasJInternalFrame();
+        jDesktop.add(mov);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = mov.getSize();
+        mov.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        mov.show();
+    }//GEN-LAST:event_link_movim_entradasActionPerformed
+
+    private void link_insumosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_link_insumosActionPerformed
+        // TODO add your handling code here:
+        InsumosJInternalFrame ins = new InsumosJInternalFrame();
+        jDesktop.add(ins);
+        Dimension desktopSize = jDesktop.getSize();
+        Dimension FrameSize = ins.getSize();
+        ins.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);                
+        ins.show();
+    }//GEN-LAST:event_link_insumosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,6 +418,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem btn_exit;
     private javax.swing.JMenuItem btn_logout;
     private javax.swing.JDesktopPane jDesktop;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -365,7 +426,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -375,9 +435,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem link_departamentos;
     private javax.swing.JMenuItem link_institucionprocedencia;
+    private javax.swing.JMenuItem link_insumos;
     private javax.swing.JMenuItem link_laboratorios;
+    private javax.swing.JMenuItem link_movim_entradas;
     private javax.swing.JMenuItem link_municipios;
     private javax.swing.JMenuItem link_presentaciones;
     private javax.swing.JMenuItem link_roles;
